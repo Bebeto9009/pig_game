@@ -56,7 +56,7 @@ document.querySelector('#current-0').textContent = 0;
         document.querySelector('#current-' + activePlayer).textContent = 0;
         roundScore = 0;
 
-        if (scores[activePlayer] >= 10) {
+        if (scores[activePlayer] >= 100) {
             document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
