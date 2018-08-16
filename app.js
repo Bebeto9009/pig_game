@@ -23,13 +23,16 @@ console.log(dice);
 
 
 document.querySelector('.dice').style.display = 'none'; // hide dice on start
+document.querySelector('#score-0').textContent = 0;
+document.querySelector('#score-1').textContent = 0;
+document.querySelector('#current-0').textContent = 0;
 
 function roll() {
     dice = Math.floor(Math.random() * 6) + 1;
     console.log('dice is: ' + dice); // result of draw
     var i = dice-1;
-    diceCube.src=cubes[i];
-    diceCube.style.display='block';         
+    diceCube.src = cubes[i];
+    diceCube.style.display = 'block';
     if (dice > 1){
         roundScore += dice;
         console.log('round score:' + roundScore);
@@ -39,6 +42,7 @@ function roll() {
         roundScore = 0;
         console.log('round score:' + roundScore);
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        document.querySelector('.dice').style.display = 'none';
         changePlayer();  
         whoWin(); 
     }
