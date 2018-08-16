@@ -9,12 +9,10 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, dice, gamePlay;
-
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
-dice = 0;
+var scores = [0,0],
+roundScore = 0,
+activePlayer = 0,
+dice = 0,
 gamePlay = true;
 
 var diceCube = document.querySelector('.dice');
