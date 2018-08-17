@@ -13,7 +13,8 @@ var scores = [0,0],
 roundScore = 0,
 activePlayer = 0,
 dice = 0,
-gamePlay = true;
+gamePlay = true,
+arrayDice = [0,0];
 
 var diceCube = document.querySelector('.dice');
 var cubes = ['dice-1.png', 'dice-2.png', 'dice-3.png', 'dice-4.png', 'dice-5.png', 'dice-6.png'];
@@ -33,16 +34,33 @@ document.querySelector('#current-0').textContent = 0;
         diceCube.src = cubes[i];
         diceCube.style.display = 'block';
 
-        if (dice > 1) {
-            roundScore += dice;
-            document.querySelector('#current-' + activePlayer).textContent = roundScore;
-        } else {
+        if (shouldResetScore()){
+            console.log('should resetScore');
+        } else if (dice === 1){
+            document.querySelector('.dice').style.display = 'none';
             roundScore = 0;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
-            document.querySelector('.dice').style.display = 'none';
-
             changePlayer();
+        } else {
+            roundScore += dice;
+            arrayDice.push(dice);
+            arrayDice.shift();
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
+            console.log(arrayDice + ' Player number ' + activePlayer + ' current score ' + roundScore);
         }
+    }
+
+    function shouldResetScore() {
+        for (var i = 0 ; i < arrayDice.length; i++) {
+            if(arrayDice[i] !== 6)
+                return false;
+        }
+        roundScore = 0;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        document.querySelector('#score-' + activePlayer).textContent = 0;
+        changePlayer();
+        console.log('reset score ' + arrayDice);
     }
 
     document.querySelector('.btn-roll').addEventListener('click', roll); // start function roll on button
@@ -54,6 +72,7 @@ document.querySelector('#current-0').textContent = 0;
         scores[activePlayer] += roundScore;
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
         document.querySelector('#current-' + activePlayer).textContent = 0;
+        document.querySelector('.dice').style.display = 'none';
         roundScore = 0;
 
         if (scores[activePlayer] >= 100) {
@@ -94,6 +113,8 @@ document.querySelector('.btn-new').addEventListener('click', newGame);
 /* change player */
 function changePlayer() {
     activePlayer = 1 - activePlayer;
+    document.querySelector('#current-' + activePlayer).textContent = 0;
+    arrayDice=[0,0];
 
     if (document.querySelector('.player-0-panel').classList.contains('active')) {
         document.querySelector('.player-0-panel').classList.remove('active');
@@ -108,3 +129,6 @@ function changePlayer() {
     }
 }
 
+//todo
+// przy 6,6 od razu wynik ma zostać zresetowany, nie można go móc zapisać
+// current ma być skasowany
