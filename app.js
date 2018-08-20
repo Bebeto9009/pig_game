@@ -45,7 +45,7 @@ function changePlayer(){
     activePlayer = 1 - activePlayer;
     lastTwoDice = [0,0];
     currentScore = 0;
-
+    document.querySelector('.dice').style.display = 'none';
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
 }
@@ -59,8 +59,8 @@ function shouldResetScore(){
     scores[activePlayer]=clearScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
     document.querySelector('#current-' + activePlayer).textContent = clearScore;
-    changePlayer();
     console.log('reset score ' + scores[activePlayer] + ' clear score is ' + clearScore);
+    return true;
 }
 
 function roll(){
@@ -73,6 +73,7 @@ function roll(){
     diceCube.style.display = 'block';
 
     if (shouldResetScore()){
+        changePlayer();
     } else if (dice === 1){
         document.querySelector('.dice').style.display = 'none';
         currentScore = 0;
@@ -97,6 +98,7 @@ function holdDice(){
     document.querySelector('.dice').style.display = 'none';
 
     if (shouldResetScore()){
+        changePlayer();
     } else if (scores[activePlayer] >= 100) {
         document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
         document.querySelector('.dice').style.display = 'none';
