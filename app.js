@@ -33,16 +33,13 @@ function newGame() {
     document.querySelector('.input-score').disabled = false;
     document.querySelector('.input-score').value = "";
     document.querySelector('.dice').style.display = 'none';
-    document.querySelector('#score-0').textContent = scores[0];
-    document.querySelector('#score-1').textContent = scores[1];
-    document.querySelector('#current-0').textContent = currentScore;
-    document.querySelector('#current-1').textContent = currentScore;
-    document.querySelector('#name-0').textContent = 'Player 1';
-    document.querySelector('#name-1').textContent = 'Player 2';
-    document.querySelector('.player-0-panel').classList.remove('winner');
-    document.querySelector('.player-1-panel').classList.remove('winner');
-    document.querySelector('.player-0-panel').classList.remove('active');
-    document.querySelector('.player-1-panel').classList.remove('active');
+    for (var i = 0; i <= 1; i++) {
+        document.querySelector('#score-'+ i ).textContent = scores[i];
+        document.querySelector('#current-' + i).textContent = currentScore;
+        document.querySelector('#name-' + i).textContent = 'Player ' + (i+1);
+        document.querySelector('.player-' + i + '-panel').classList.remove('winner');
+        document.querySelector('.player-' + i + '-panel').classList.remove('active');
+    }
     document.querySelector('.player-0-panel').classList.add('active');
 }
 
