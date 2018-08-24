@@ -5,8 +5,9 @@ GAME RULES:
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLOBAL score. After that, it's the next player's turn
-- The first player to reach 100 points on GLOBAL score wins the game
 - Player who got two 6 in a row lose his GLOBAL score
+- The first player to reach 100 points on GLOBAL score wins the game
+
 */
 
 var scores = [0,0],
@@ -15,6 +16,7 @@ lastTwoDice = [0,0],
 activePlayer = 0,
 dice = 0,
 clearScore = 0,
+topScore = 100,
 gamePlay = true;
 
 var diceCube = document.querySelector('.dice');
@@ -27,6 +29,9 @@ function newGame() {
     scores = [0,0];
     currentScore = 0;
     activePlayer = 0;
+    topScore = 100;
+    document.querySelector('.input-score').disabled = false;
+    document.querySelector('.input-score').value = "";
     document.querySelector('.dice').style.display = 'none';
     document.querySelector('#score-0').textContent = scores[0];
     document.querySelector('#score-1').textContent = scores[1];
@@ -65,6 +70,7 @@ function shouldResetScore(){
 
 function roll(){
     if (!gamePlay) return;
+    document.querySelector('.input-score').disabled = true;
 
     dice = Math.floor(Math.random() * 6) + 1;
 
@@ -88,6 +94,19 @@ function roll(){
     }
 }
 
+document.querySelector(".input-score").addEventListener('change', checkInput);
+
+function checkInput() {
+    var inputValue = document.querySelector('.input-score').value;
+    if ((inputValue === null) || (inputValue === undefined) || (inputValue=== "")){
+        topScore = 100;
+        console.log('total score is ' + topScore);
+    } else {
+        topScore = document.querySelector('.input-score').value;
+        console.log('total score is po elsie ' + topScore);
+    }
+}
+
 function holdDice(){
     if (!gamePlay) return;
 
@@ -99,7 +118,7 @@ function holdDice(){
 
     if (shouldResetScore()){
         changePlayer();
-    } else if (scores[activePlayer] >= 100) {
+    } else if (scores[activePlayer] >= topScore) {
         document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
         document.querySelector('.dice').style.display = 'none';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');

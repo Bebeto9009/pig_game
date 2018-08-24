@@ -140,6 +140,18 @@ i {
 .btn-new { top: 45px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
+.input-score {
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    top: 515px;
+    left: 40%;
+    text-align: center;
+}
+
+.input-score::placeholder{
+    text-align: center;
+}
 
 .dice {
     position: absolute;
